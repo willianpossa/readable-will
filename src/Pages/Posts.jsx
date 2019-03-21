@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 import ListCategories from '../Components/Categories/List'
 import OrderCategories from '../Components/Categories/Order'
 
-import ListPosts from '../Containers/Posts/Posts'
+import Posts from '../Containers/Posts/Posts'
 
-class CategoryPage extends Component {
+class ListPost extends Component {
 
     render() {
 
@@ -13,16 +13,16 @@ class CategoryPage extends Component {
             <div>
                 <ListCategories />
                 <main>
-                    <h2>Category</h2>
+                    <h2>Posts</h2>
                     <div className="actions-page">
                         <OrderCategories />
                         <button>Write Post</button>
                     </div>
-                    <ListPosts />
+                    <Posts />
                 </main>
             </div>
         )
     }
 }
 
-export default CategoryPage
+export default ListPost

@@ -1,4 +1,4 @@
-defaultState = {}
+const defaultState = {}
 
 export default function posts(state = defaultState, action) {
     switch(action.type) {
