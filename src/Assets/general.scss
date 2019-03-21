@@ -1,0 +1,30 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -moz-font-feature-settings: "liga","kern";
+}
+
+body
+{
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.container
+{
+    max-width: 1200px;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+a
+{
+    text-decoration: none;
+    color: inherit;
+}

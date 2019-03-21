@@ -16,21 +16,21 @@ class App extends Component {
 	render() {
 
 		return (
-			<div>
+			<Router>
 				<Header />
-				<Router>
-					<Route render={ ({location}) => (
-						<Switch location={ location }>
-							{ RoutePaths.map(route => (
-								<Route exact={ route.exact } path={ route.path } component={ route.component } />
-							))}
+				
+				<Route render={ ({location}) => (
+					<Switch location={ location }>
+						{ RoutePaths.map(route => (
+							<Route exact={ route.exact } path={ route.path } component={ route.component } />
+						))}
 
-							<Route path="*" component={ NotFound } />
-						</Switch>
-					)} />
-				</Router>
+						<Route path="*" component={ NotFound } />
+					</Switch>
+				)} />
+
 				<Footer />
-			</div>
+			</Router>
 		);
 	}
 }

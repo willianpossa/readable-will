@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
+import './Assets/boot.scss'
+
 import Store from './Store'
 
 import App from './App'
