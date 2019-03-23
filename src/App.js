@@ -5,6 +5,8 @@ import {
 	Route
 } from 'react-router-dom'
 
+import { MainWrapper } from './AppStyle'
+
 import Header from './Components/Shared/Header'
 import Footer from './Components/Shared/Footer'
 
@@ -19,15 +21,19 @@ class App extends Component {
 			<Router>
 				<Header />
 				
-				<Route render={ ({location}) => (
-					<Switch location={ location }>
-						{ RoutePaths.map(route => (
-							<Route exact={ route.exact } path={ route.path } component={ route.component } />
-						))}
+				<MainWrapper>
+					<div className="container">
+						<Route render={ ({location}) => (
+							<Switch location={ location }>
+								{ RoutePaths.map(route => (
+									<Route key={ location } exact={ route.exact } path={ route.path } component={ route.component } />
+								))}
 
-						<Route path="*" component={ NotFound } />
-					</Switch>
-				)} />
+								<Route path="*" component={ NotFound } />
+							</Switch>
+						)} />
+					</div>
+				</MainWrapper>
 
 				<Footer />
 			</Router>

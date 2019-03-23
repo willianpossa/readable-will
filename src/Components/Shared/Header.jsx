@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import ListCategories from '../Categories/List'
 
 import { 
     HeaderWrapper, 
@@ -12,7 +13,9 @@ const Header = () => (
     <HeaderWrapper>
         <HeaderContainer className="container">
             <ApplicationName><Link to="/">Readable</Link></ApplicationName>
-            <CategoryWrapper>123</CategoryWrapper>
+            <CategoryWrapper>
+                <ListCategories />
+            </CategoryWrapper>
         </HeaderContainer>
     </HeaderWrapper>
 )

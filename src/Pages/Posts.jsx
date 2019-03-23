@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 
-import ListCategories from '../Components/Categories/List'
-import OrderCategories from '../Components/Categories/Order'
+import OrderCategories from '../Containers/OrderCategories'
 
 import Posts from '../Containers/Posts/Posts'
+
+import PageHeader from '../Components/Shared/PageHeader'
 
 class ListPost extends Component {
 
@@ -11,15 +12,11 @@ class ListPost extends Component {
 
         return (
             <div>
-                <ListCategories />
-                <main>
-                    <h2>Posts</h2>
-                    <div className="actions-page">
-                        <OrderCategories />
-                        <button>Write Post</button>
-                    </div>
-                    <Posts />
-                </main>
+                <PageHeader title="Posts" button={ true } />
+                <div className="actions-page">
+                    <OrderCategories />
+                </div>
+                <Posts />
             </div>
         )
     }

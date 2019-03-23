@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import ListCategories from '../Components/Categories/List'
-import OrderCategories from '../Components/Categories/Order'
+import OrderCategories from '../Containers/OrderCategories'
 
 import ListPosts from '../Containers/Posts/Posts'
 
