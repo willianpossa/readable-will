@@ -14,6 +14,7 @@ const ArticleWrapper = styled.article`
 const ArticleInfo = styled.div`
     display: flex;
     flex-wrap: wrap;
+    flex: 1;
 `
 
 const Title = styled.h5`
@@ -58,6 +59,7 @@ const Action = styled.span`
     font-weight: 600;
     font-size: 16px;
     margin-right: 10px;
+    cursor: pointer;
 
     &.red
     {

@@ -21,12 +21,12 @@ export default [
     },
     {
         component: ViewPost,
-        path: '/:post_id',
+        path: '/view/:post_id',
         exact: true
     },
     {
         component: Category,
-        path: '/category/:category',
+        path: '/:category',
         exact: true
     },
 ]

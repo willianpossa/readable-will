@@ -1,23 +1,55 @@
 import React, { Component } from 'react'
-import PostItem from './PostItem';
+import { connect } from 'react-redux'
+
+import PostItem from './PostItem'
+
+import { fetch_posts } from '../../Actions/posts'
+
+import DateFormatter from '../../Helpers/DateFormatter'
 
 class ListPosts extends Component {
 
+    componentDidMount() {
+        this.props.FetchPosts()
+    }
+
     render() {
+        const { DisplayedPosts } = this.props
 
         return (
             <div>
-                <PostItem 
-                    title="Udacity é o melhor lugar para se aprender React"
-                    author="Willian Possa"
-                    date="09/05/2019 18:43"
-                    comments={ 2 }
-                    category="react"
-                    votes={ 10 }
-                />
+                { DisplayedPosts.map(post => (
+                    <PostItem 
+                        key={ post.id }
+                        id={ post.id }
+                        title={ post.title }
+                        author={ post.author }
+                        date={ DateFormatter(post.timestamp) }
+                        comments={ post.commentCount }
+                        category={ post.category }
+                        votes={ post.voteScore }
+                    />
+                ))}
             </div>
         )
     }
 }
 
-export default ListPosts
+const mapStateToProps = ({ Posts }, ownProps) => {
+    let DisplayedPosts = []
+
+    if(ownProps.category)
+        DisplayedPosts = Posts.data.filter(post => post.category === ownProps.category)
+    else
+        DisplayedPosts = Posts.data
+
+    return {
+        DisplayedPosts
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    FetchPosts: _ => (dispatch(fetch_posts()))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListPosts)

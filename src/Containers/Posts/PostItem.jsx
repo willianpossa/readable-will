@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import { 
     ArticleWrapper, 
@@ -16,10 +17,15 @@ import {
     Arrow
 } from './PostItemStyle'
 
+import { 
+    vote_post,
+    delete_post
+} from '../../Actions/posts'
+
 class PostItem extends Component {
 
     render() {
-        const { title, author, date, comments, category, votes } = this.props
+        const { id, title, author, date, comments, category, votes } = this.props
 
         return (
             <ArticleWrapper>
@@ -35,15 +41,18 @@ class PostItem extends Component {
                     <ActionsWrapper>
                         <Category>{ category }</Category>
                         <Action className="blue">Editar</Action>
-                        <Action className="red">Deletar</Action>
+                        <Action 
+                            onClick={ () => { this.props.DeletePost(id) } }
+                            className="red"
+                        >Deletar</Action>
                     </ActionsWrapper>
                 </ArticleInfo>
                 <LikeWrapper>
-                    <Arrow>
+                    <Arrow onClick={ () => { this.props.VotePost('upVote', id) } }>
                         <i className="icon-up-arrow"></i>
                     </Arrow>
                     <Like>{ votes }</Like>
-                    <Arrow>
+                    <Arrow onClick={ () => { this.props.VotePost('downVote', id) } }>
                         <i className="icon-down-arrow"></i>
                     </Arrow>
                 </LikeWrapper>
@@ -52,4 +61,13 @@ class PostItem extends Component {
     }
 }
 
-export default PostItem
+const mapStateToProps = ({ Posts }, ownProps) => {
+    return {}
+}
+
+const mapDispatchToProps = dispatch => ({
+    VotePost: (type, id) => (dispatch(vote_post(type, id))),
+    DeletePost: id => (dispatch(delete_post(id)))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostItem)
