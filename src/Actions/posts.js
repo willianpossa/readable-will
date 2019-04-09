@@ -2,7 +2,9 @@ import API from '../config'
 
 // Actions types
 export const FETCHING_POSTS = 'FETCHING_POSTS'
-export const GET_OR_UPDATE_POSTS = 'GET_OR_UPDATE_POSTS'
+export const GET_INITIAL_DATA = 'GET_INITIAL_DATA'
+export const UPDATE_VOTESCORE = 'UPDATE_VOTESCORE'
+export const GET_POST_DETAIL = 'GET_POST_DETAIL'
 
 // Actions Creators
 export const handleFetchPosts = _ => {
@@ -11,10 +13,25 @@ export const handleFetchPosts = _ => {
     }
 }
 
-export const handleGetOrUpdatePosts = posts => {
+export const handleGetInitialData = posts => {
     return {
-        type: GET_OR_UPDATE_POSTS,
+        type: GET_INITIAL_DATA,
         posts
+    }
+}
+
+export const handleUpdateVoteScore = (id, score) => {
+    return {
+        type: UPDATE_VOTESCORE,
+        id,
+        score
+    }
+}
+
+export const handleGetPostDetail = (post) => {
+    return {
+        type: GET_POST_DETAIL,
+        post
     }
 }
 
@@ -25,7 +42,17 @@ export const fetch_posts = () => {
 
         return API.get('/posts').then(({ data, status }) => {
             if(status === 200) {
-                dispatch(handleGetOrUpdatePosts(data))
+                dispatch(handleGetInitialData(data))
+            }
+        })
+    }
+}
+
+export const get_post_detail = id => {
+    return dispatch => {
+        return API.get(`/posts/${id}`).then(({data, status}) => {
+            if(status === 200) {
+                dispatch(handleGetPostDetail(data))
             }
         })
     }
@@ -33,42 +60,12 @@ export const fetch_posts = () => {
 
 export const vote_post = (option, id) => {
     return (dispatch, getState) => {
-        const posts = getState().Posts.data
-
-        const newPosts = posts.map(post => {
-            if(post.id === id) {
-                post.voteScore = option === 'upVote' ? (post.voteScore + 1) : (post.voteScore - 1)
-                
-                return post
-            } else {
-                return post
-            }
-        })
-
         return API.post('/posts/' + id, { option }).then(({ data, status }) => {
             if(status === 200) {
-                dispatch(handleGetOrUpdatePosts(newPosts))  
-            } else {
-                dispatch(handleGetOrUpdatePosts(posts))
+                dispatch(handleUpdateVoteScore(data.id, data.voteScore))
             }
         }).catch(error => {
-            dispatch(handleGetOrUpdatePosts(posts))
-
             console.log(error)
-        })
-    }
-}
-
-export const delete_post = id => {
-    return (dispatch, getState) => {
-        const posts = getState().Posts.data
-
-        return API.delete('/posts/' + id).then(({data, status}) => {
-            if(status === 200 && data.deleted) {
-                const newPosts = posts.filter(post => post.id !== id)
-
-                dispatch(handleGetOrUpdatePosts(newPosts))
-            }
         })
     }
 }

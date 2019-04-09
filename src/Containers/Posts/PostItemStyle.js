@@ -79,6 +79,13 @@ const Comments = styled.p`
     color: #6B44BA;
 `
 
+const ContentWrapper = styled.p`
+    display: block;
+    color: #999;
+    font-size: 14px;
+    margin-bottom: 10px;
+`
+
 const LikeWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -119,6 +126,7 @@ export {
     Category, 
     Action, 
     Comments,
+    ContentWrapper,
     LikeWrapper,
     Like,
     Arrow

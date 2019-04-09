@@ -28,6 +28,7 @@ class ListPosts extends Component {
                         comments={ post.commentCount }
                         category={ post.category }
                         votes={ post.voteScore }
+                        single={ post.body }
                     />
                 ))}
             </div>
@@ -39,9 +40,9 @@ const mapStateToProps = ({ Posts }, ownProps) => {
     let DisplayedPosts = []
 
     if(ownProps.category)
-        DisplayedPosts = Posts.data.filter(post => post.category === ownProps.category)
+        DisplayedPosts = Posts.posts.filter(post => post.category === ownProps.category)
     else
-        DisplayedPosts = Posts.data
+        DisplayedPosts = Posts.posts
 
     return {
         DisplayedPosts

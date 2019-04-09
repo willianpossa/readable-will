@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { 
     ArticleWrapper, 
@@ -14,23 +15,34 @@ import {
     Comments, 
     LikeWrapper, 
     Like,
-    Arrow
+    Arrow,
+    ContentWrapper
 } from './PostItemStyle'
 
 import { 
-    vote_post,
-    delete_post
+    vote_post
 } from '../../Actions/posts'
 
 class PostItem extends Component {
 
     render() {
-        const { id, title, author, date, comments, category, votes } = this.props
+        const { 
+            id, 
+            title, 
+            author, 
+            date, 
+            comments, 
+            category, 
+            votes,
+            single
+        } = this.props
 
         return (
             <ArticleWrapper>
                 <ArticleInfo>
-                    <Title>{ title }</Title>
+                    <Title>
+                        <Link to={ `/view/${id}` }>{ title }</Link>
+                    </Title>
                     <GeneralsInfo>
                         <Author>{ author }</Author> - <Date>{ date }</Date>
                         <Comments>
@@ -38,6 +50,9 @@ class PostItem extends Component {
                             { comments } comentário{ comments > 1 ? 's' : '' }
                         </Comments>
                     </GeneralsInfo>
+                    { single !== '' && 
+                        <ContentWrapper>{ single }</ContentWrapper>
+                    }
                     <ActionsWrapper>
                         <Category>{ category }</Category>
                         <Action className="blue">Editar</Action>
@@ -66,8 +81,7 @@ const mapStateToProps = ({ Posts }, ownProps) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    VotePost: (type, id) => (dispatch(vote_post(type, id))),
-    DeletePost: id => (dispatch(delete_post(id)))
+    VotePost: (type, id) => (dispatch(vote_post(type, id)))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostItem)

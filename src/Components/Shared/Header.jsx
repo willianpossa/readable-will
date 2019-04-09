@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import ListCategories from '../Categories/List'
+import ListCategories from '../../Containers/ListCategories'
 
 import { 
     HeaderWrapper, 
