@@ -3,7 +3,7 @@ import {
     UPDATE_VOTESCORE,
     GET_INITIAL_DATA,
     GET_POST_DETAIL
-} from "../Actions/posts";
+} from "../Actions/ActionTypes";
 
 const defaultState = {
     posts: [],

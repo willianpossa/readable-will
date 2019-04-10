@@ -1,26 +1,27 @@
 import API from '../config'
 
-// Actions types
-export const FETCHING_POSTS = 'FETCHING_POSTS'
-export const GET_INITIAL_DATA = 'GET_INITIAL_DATA'
-export const UPDATE_VOTESCORE = 'UPDATE_VOTESCORE'
-export const GET_POST_DETAIL = 'GET_POST_DETAIL'
+import { 
+    FETCHING_POSTS,
+    UPDATE_VOTESCORE,
+    GET_INITIAL_DATA,
+    GET_POST_DETAIL
+} from "./ActionTypes";
 
 // Actions Creators
-export const handleFetchPosts = _ => {
+const handleFetchPosts = _ => {
     return {
         type: FETCHING_POSTS,
     }
 }
 
-export const handleGetInitialData = posts => {
+const handleGetInitialData = posts => {
     return {
         type: GET_INITIAL_DATA,
         posts
     }
 }
 
-export const handleUpdateVoteScore = (id, score) => {
+const handleUpdateVoteScore = (id, score) => {
     return {
         type: UPDATE_VOTESCORE,
         id,
@@ -28,7 +29,7 @@ export const handleUpdateVoteScore = (id, score) => {
     }
 }
 
-export const handleGetPostDetail = (post) => {
+const handleGetPostDetail = (post) => {
     return {
         type: GET_POST_DETAIL,
         post

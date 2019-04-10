@@ -21,7 +21,7 @@ export default [
     },
     {
         component: ViewPost,
-        path: '/view/:post_id',
+        path: '/:category/:post_id',
         exact: true
     },
     {

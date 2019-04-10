@@ -41,7 +41,7 @@ class PostItem extends Component {
             <ArticleWrapper>
                 <ArticleInfo>
                     <Title>
-                        <Link to={ `/view/${id}` }>{ title }</Link>
+                        <Link to={ `/${category}/${id}` }>{ title }</Link>
                     </Title>
                     <GeneralsInfo>
                         <Author>{ author }</Author> - <Date>{ date }</Date>

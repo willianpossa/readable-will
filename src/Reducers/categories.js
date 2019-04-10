@@ -1,4 +1,4 @@
-import { GET_ALL_CATEGORIES } from '../Actions/categories'
+import { GET_ALL_CATEGORIES } from '../Actions/ActionTypes'
 
 const defaultState = {
     list: []

@@ -1,8 +1,10 @@
 import API from '../config'
 
-export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
+import {
+    GET_ALL_CATEGORIES
+} from './ActionTypes'
 
-export const handleGetCategories = (categories) => {
+const handleGetCategories = (categories) => {
     return {
         type: GET_ALL_CATEGORIES,
         categories
@@ -11,7 +13,7 @@ export const handleGetCategories = (categories) => {
 
 export const get_categories = _ => {
     return dispatch => {
-        return API.get('/categories').then(({data, status}) => {
+        return API.get(`/categories`).then(({data, status}) => {
             if(status === 200) {
                 dispatch(handleGetCategories(data.categories))
             }

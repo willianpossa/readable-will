@@ -19,6 +19,7 @@ class ViewPostPage extends Component {
     }
 
     render() {
+        const { post_id } = this.props.match.params
         const {
             id,
             title,
@@ -49,7 +50,7 @@ class ViewPostPage extends Component {
                     <button>Write Comment</button>
                     <NewComment />
 
-                    <Comments />
+                    <Comments post_id={ post_id } />
                 </main>
             </div>
         )
