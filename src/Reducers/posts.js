@@ -2,7 +2,8 @@ import {
     FETCHING_POSTS,
     UPDATE_VOTESCORE,
     GET_INITIAL_DATA,
-    GET_POST_DETAIL
+    GET_POST_DETAIL,
+    REMOVE_POST
 } from "../Actions/ActionTypes";
 
 const defaultState = {
@@ -12,6 +13,8 @@ const defaultState = {
 }
 
 export default function posts(state = defaultState, action) {
+    let { posts, post } = state
+
     switch(action.type) {
 
         case FETCHING_POSTS:
@@ -28,10 +31,8 @@ export default function posts(state = defaultState, action) {
             }
         
         case UPDATE_VOTESCORE:
-            let { posts, post } = state
-
             posts = posts.map(post => {
-                if(post.id === action.id) {
+                if(post.id === action.post_id) {
                     return {
                         ...post,
                         voteScore: action.score
@@ -58,6 +59,24 @@ export default function posts(state = defaultState, action) {
             return {
                 ...state,
                 post: action.post
+            }
+
+        case REMOVE_POST: 
+            posts = posts.map(post => {
+                if(post.id === action.post.id) {
+                    return {
+                        ...action.post
+                    }
+                }
+
+                return post
+            })
+
+            posts = posts.filter(post => post.deleted === false)
+
+            return {
+                ...state,
+                posts
             }
 
         default:

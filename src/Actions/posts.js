@@ -4,7 +4,8 @@ import {
     FETCHING_POSTS,
     UPDATE_VOTESCORE,
     GET_INITIAL_DATA,
-    GET_POST_DETAIL
+    GET_POST_DETAIL,
+    REMOVE_POST
 } from "./ActionTypes";
 
 // Actions Creators
@@ -21,10 +22,10 @@ const handleGetInitialData = posts => {
     }
 }
 
-const handleUpdateVoteScore = (id, score) => {
+const handleUpdateVoteScore = (post_id, score) => {
     return {
         type: UPDATE_VOTESCORE,
-        id,
+        post_id,
         score
     }
 }
@@ -32,6 +33,13 @@ const handleUpdateVoteScore = (id, score) => {
 const handleGetPostDetail = (post) => {
     return {
         type: GET_POST_DETAIL,
+        post
+    }
+}
+
+const handleDeletePost = post => {
+    return {
+        type: REMOVE_POST,
         post
     }
 }
@@ -59,11 +67,23 @@ export const get_post_detail = id => {
     }
 }
 
-export const vote_post = (option, id) => {
-    return (dispatch, getState) => {
+export const votePost = (option, id) => {
+    return (dispatch) => {
         return API.post('/posts/' + id, { option }).then(({ data, status }) => {
             if(status === 200) {
                 dispatch(handleUpdateVoteScore(data.id, data.voteScore))
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+}
+
+export const deletePost = (post_id) => {
+    return (dispatch) => {
+        return API.delete('/posts/' + post_id).then(({data, status}) => {
+            if(status === 200) {
+                dispatch(handleDeletePost(data))
             }
         }).catch(error => {
             console.log(error)

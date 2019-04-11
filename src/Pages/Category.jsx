@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import OrderCategories from '../Containers/OrderCategories'
 
-import ListPosts from '../Containers/Posts/Posts'
+import Posts from '../Containers/Posts/Posts'
 
 class CategoryPage extends Component {
 
@@ -17,7 +17,7 @@ class CategoryPage extends Component {
                         <OrderCategories />
                         <button>Write Post</button>
                     </div>
-                    <ListPosts category={ category } />
+                    <Posts category={ category } />
                 </main>
             </div>
         )

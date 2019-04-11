@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 import { 
     ArticleWrapper, 
@@ -20,10 +20,26 @@ import {
 } from './PostItemStyle'
 
 import { 
-    vote_post
+    votePost,
+    deletePost
 } from '../../Actions/posts'
 
 class PostItem extends Component {
+
+    state = {
+        deleted: false
+    }
+
+    deletePost = _ => {
+        this.props.DeletePost(this.props.id)
+
+        if(this.props.detail) {
+            this.setState(prevState => ({
+                ...prevState,
+                deleted: true
+            }))
+        }
+    }
 
     render() {
         const { 
@@ -34,8 +50,15 @@ class PostItem extends Component {
             comments, 
             category, 
             votes,
-            single
+            single,
+            detail
         } = this.props
+
+        const { deleted } = this.state
+
+        if(deleted) {
+            return <Redirect to='/' />
+        }
 
         return (
             <ArticleWrapper>
@@ -57,7 +80,7 @@ class PostItem extends Component {
                         <Category>{ category }</Category>
                         <Action className="blue">Editar</Action>
                         <Action 
-                            onClick={ () => { this.props.DeletePost(id) } }
+                            onClick={ this.deletePost }
                             className="red"
                         >Deletar</Action>
                     </ActionsWrapper>
@@ -81,7 +104,8 @@ const mapStateToProps = ({ Posts }, ownProps) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    VotePost: (type, id) => (dispatch(vote_post(type, id)))
+    VotePost: (type, post_id) => (dispatch(votePost(type, post_id))),
+    DeletePost: (post_id) => (dispatch(deletePost(post_id)))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostItem)

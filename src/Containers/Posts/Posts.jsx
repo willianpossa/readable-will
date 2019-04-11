@@ -29,6 +29,7 @@ class ListPosts extends Component {
                         category={ post.category }
                         votes={ post.voteScore }
                         single={ post.body }
+                        detail={ false }
                     />
                 ))}
             </div>
