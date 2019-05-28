@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Setup, Media } from '../../ConfigStyle'
+import { Setup } from '../../ConfigStyle'
 
 const FooterWrapper = styled.footer`
     background-color: #FFF;

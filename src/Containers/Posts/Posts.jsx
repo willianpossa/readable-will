@@ -14,11 +14,11 @@ class ListPosts extends Component {
     }
 
     render() {
-        const { DisplayedPosts } = this.props
+        const { posts } = this.props
 
         return (
             <div>
-                { DisplayedPosts.map(post => (
+                { posts.map(post => (
                     <PostItem 
                         key={ post.id }
                         id={ post.id }
@@ -38,15 +38,13 @@ class ListPosts extends Component {
 }
 
 const mapStateToProps = ({ Posts }, ownProps) => {
-    let DisplayedPosts = []
+    let { posts } = Posts
 
     if(ownProps.category)
-        DisplayedPosts = Posts.posts.filter(post => post.category === ownProps.category)
-    else
-        DisplayedPosts = Posts.posts
+        posts = Posts.posts.filter(post => post.category === ownProps.category)
 
     return {
-        DisplayedPosts
+        posts
     }
 }
 

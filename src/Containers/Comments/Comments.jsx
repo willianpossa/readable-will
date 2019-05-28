@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { CommentsHolder } from './CommentsStyle.js'
+
 import CommentItem from './CommentItem'
 
 class ListComments extends Component {
@@ -8,11 +10,11 @@ class ListComments extends Component {
         const { comments } = this.props
 
         return (
-            <div>
+            <CommentsHolder>
                 { comments.map(comment => (
                     <CommentItem key={ comment.id } { ...comment } />
                 )) }
-            </div>
+            </CommentsHolder>
         )
     }
 }

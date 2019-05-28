@@ -3,7 +3,9 @@ import { connect } from 'react-redux'
 
 import RandomizeString from '../../Helpers/RandomizeString'
 
-import { addComment, editComment } from '../../Actions/comments'
+import { FormComment, LabelField, InputField, TextareaField, Button, CleanForm } from './NewCommentStyle'
+
+import { addComment, editComment, emptyComment } from '../../Actions/comments'
 
 class NewComment extends Component {
 
@@ -27,6 +29,8 @@ class NewComment extends Component {
             author: '',
             body: ''
         }))
+
+        this.props.EmptyComment()
     }
 
     createComment = () => {
@@ -62,7 +66,7 @@ class NewComment extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(prevProps.comment.id !== this.props.comment.id && Object.keys(this.props.comment).length > 0) {
+        if(this.state.commentID === '' && Object.keys(this.props.comment).length > 0) {
             this.setState(prevState => ({
                 ...prevState,
                 commentID: this.props.comment.id,
@@ -76,19 +80,34 @@ class NewComment extends Component {
         const { commentID } = this.state
 
         return (
-            <div className="new-comment-holder">
+            <FormComment>
                 <div className="form-group">
-                    <label htmlFor="author">Autor</label>
-                    <input type="text" name="author" disabled={ commentID !== '' } id="author" value={ this.state.author } onChange={ this.handleChange } />
+                    <LabelField htmlFor="author">Autor</LabelField>
+                    <InputField 
+                        type="text" 
+                        name="author" 
+                        disabled={ commentID !== '' } 
+                        id="author" 
+                        value={ this.state.author } 
+                        onChange={ this.handleChange } 
+                    />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="body">Comentário</label>
-                    <textarea name="body" id="body" value={ this.state.body } onChange={ this.handleChange } />
+                    <LabelField htmlFor="body">Comentário</LabelField>
+                    <TextareaField 
+                        name="body" 
+                        id="body" 
+                        value={ this.state.body } 
+                        onChange={ this.handleChange }
+                    />
                 </div>
                 <div className="button-holder">
-                    <button onClick={ this.createComment }>Enviar</button>
+                    <Button onClick={ this.createComment }>{ commentID !== '' ? 'Editar' : 'Criar' }</Button>
+                    { commentID !== '' && 
+                        <CleanForm onClick={ this.cleanForm }>Cancelar edição</CleanForm>
+                    }
                 </div>
-            </div>
+            </FormComment>
         )
     }
 }
@@ -101,7 +120,8 @@ const mapStateToProps = ({ Comments }) => {
 
 const mapDispatchToProps = dispatch => ({
     AddComment: data => (dispatch(addComment(data))),
-    EditComment: (comment_id, newComment) => (dispatch(editComment(comment_id, newComment)))
+    EditComment: (comment_id, newComment) => (dispatch(editComment(comment_id, newComment))),
+    EmptyComment: _ => (dispatch(emptyComment()))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewComment)

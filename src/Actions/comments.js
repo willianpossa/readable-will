@@ -6,7 +6,8 @@ import {
     REMOVE_COMMENT,
     ADD_COMMENT,
     CHANGE_EDIT_COMMENT,
-    EDIT_COMMENT
+    EDIT_COMMENT,
+    EMPTY_COMMENT
 } from './ActionTypes'
 
 // actions creators
@@ -101,6 +102,12 @@ export const editComment = (comment_id, comment) => {
         }).catch(error => {
             console.log(error)
         })
+    }
+}
+
+export const emptyComment = _ => {
+    return {
+        type: EMPTY_COMMENT
     }
 }
 

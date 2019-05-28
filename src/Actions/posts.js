@@ -5,7 +5,11 @@ import {
     UPDATE_VOTESCORE,
     GET_INITIAL_DATA,
     GET_POST_DETAIL,
-    REMOVE_POST
+    REMOVE_POST,
+    ADD_POST,
+    EDIT_POST,
+    ORDER_POSTS,
+    EMPTY_POST
 } from "./ActionTypes";
 
 // Actions Creators
@@ -41,6 +45,27 @@ const handleDeletePost = post => {
     return {
         type: REMOVE_POST,
         post
+    }
+}
+
+const handleAddPost = post => {
+    return {
+        type: ADD_POST,
+        post
+    }
+}
+
+const handleEditPost = post => {
+    return {
+        type: EDIT_POST,
+        post
+    }
+}
+
+const handleOrderPosts = orderBy => {
+    return {
+        type: ORDER_POSTS,
+        orderBy
     }
 }
 
@@ -88,5 +113,31 @@ export const deletePost = (post_id) => {
         }).catch(error => {
             console.log(error)
         })
+    }
+}
+
+export const addPost = (post) => {
+    return dispatch => {
+        return API.post('/posts', post).then(({data, status}) => {
+            if(status === 200) {
+                dispatch(handleAddPost(data))
+            }
+        })
+    }
+}
+
+export const editPost = (post_id, post) => {
+    return dispatch => {
+        return API.put(`/posts/${ post_id }`, post).then(({data, status}) => {
+            if(status === 200) {
+                dispatch(handleEditPost(data))
+            }
+        })
+    }
+}
+
+export const emptyPost = _ => {
+    return {
+        type: EMPTY_POST
     }
 }

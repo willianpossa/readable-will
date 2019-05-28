@@ -3,7 +3,11 @@ import {
     UPDATE_VOTESCORE,
     GET_INITIAL_DATA,
     GET_POST_DETAIL,
-    REMOVE_POST
+    REMOVE_POST,
+    ADD_POST,
+    EDIT_POST,
+    ORDER_POSTS,
+    EMPTY_POST
 } from "../Actions/ActionTypes";
 
 const defaultState = {
@@ -77,6 +81,36 @@ export default function posts(state = defaultState, action) {
             return {
                 ...state,
                 posts
+            }
+
+        case ADD_POST:
+            return {
+                ...state,
+                posts: state.posts.concat([action.post])
+            }
+
+        case EDIT_POST:
+            posts = posts.map(post => {
+                if(post.id === action.post.id) {
+                    return {
+                        ...action.post
+                    }
+                }
+                
+                return {
+                    ...post
+                }
+            })
+
+            return {
+                ...state,
+                posts
+            }
+
+        case EMPTY_POST:
+            return {
+                ...state,
+                post: {}
             }
 
         default:

@@ -50,8 +50,7 @@ class PostItem extends Component {
             comments, 
             category, 
             votes,
-            single,
-            detail
+            single
         } = this.props
 
         const { deleted } = this.state
@@ -78,7 +77,9 @@ class PostItem extends Component {
                     }
                     <ActionsWrapper>
                         <Category>{ category }</Category>
-                        <Action className="blue">Editar</Action>
+                        <Action className="blue">
+                            <Link to={ `/${ id }/edit` }>Editar</Link>
+                        </Action>
                         <Action 
                             onClick={ this.deletePost }
                             className="red"

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import DateFormatter from '../../Helpers/DateFormatter'
+import { CommentItemHolder, GeneralInfo, Author, Content, VoteScoreHolder, VoteScore, UpdateVoteScore, Action } from './CommentItemStyle'
 
 import { updateVoteScore, removeComment, changeEditComment } from '../../Actions/comments'
 
@@ -12,21 +12,23 @@ class ItemComment extends Component {
             id,
             author,
             body,
-            timestamp,
             voteScore            
         } = this.props
 
         return (
-            <div>
-                <p>{ author }</p>
-                <p>{ body }</p>
-                <p>{ DateFormatter(timestamp) }</p>
-                <span onClick={ () => { this.props.UpdateVoteScore('upVote', id) } }>up</span>
-                <p>{ voteScore }</p>
-                <span onClick={ () => { this.props.UpdateVoteScore('downVote', id) } }>down</span>
-                <span onClick={ () => { this.props.ChangeEditComment(this.props) } }>edit</span>
-                <span onClick={ () => { this.props.RemoveComment(id) } }>Remove</span>
-            </div>
+            <CommentItemHolder>
+                <GeneralInfo>
+                    <Author>{ author }</Author>
+                    <Content>{ body }</Content>
+                    <Action onClick={ () => { this.props.ChangeEditComment(this.props) } }>Editar</Action>
+                    <Action onClick={ () => { this.props.RemoveComment(id) } } className="red">Remover</Action>
+                </GeneralInfo>
+                <VoteScoreHolder>
+                    <UpdateVoteScore onClick={ () => { this.props.UpdateVoteScore('upVote', id) } }></UpdateVoteScore>
+                    <VoteScore>{ voteScore }</VoteScore>
+                    <UpdateVoteScore onClick={ () => { this.props.UpdateVoteScore('downVote', id) } }></UpdateVoteScore>
+                </VoteScoreHolder>
+            </CommentItemHolder>
         )
     }
 }

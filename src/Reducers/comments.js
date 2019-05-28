@@ -4,7 +4,8 @@ import {
     REMOVE_COMMENT,
     ADD_COMMENT,
     EDIT_COMMENT,
-    CHANGE_EDIT_COMMENT
+    CHANGE_EDIT_COMMENT,
+    EMPTY_COMMENT
 } from '../Actions/ActionTypes'
 
 const defaultState = {
@@ -84,6 +85,12 @@ export default function comments(state = defaultState, action) {
             return {
                 ...state,
                 editComment: action.comment
+            }
+
+        case EMPTY_COMMENT:
+            return {
+                ...state,
+                editComment: {}
             }
 
         default:

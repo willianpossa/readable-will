@@ -1,3 +1,8 @@
+button
+{
+    cursor: pointer;
+}
+
 .button
 {
     background-color: #7B55C8;
@@ -9,6 +14,7 @@
     border-radius: 4px;
     border: 1px solid #7B55C8;
     transition: all .33s ease-in-out;
+    cursor: pointer;
     
     &:hover
     {

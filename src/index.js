@@ -9,6 +9,8 @@ import Store from './Store'
 import App from './App'
 
 ReactDOM.render(
-<Provider store={ Store }>
-    <App />
-</Provider>, document.getElementById('root'))
+    <Provider store={ Store }>
+        <App />
+    </Provider>, 
+    document.getElementById('root')
+)

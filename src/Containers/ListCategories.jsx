@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+import { CategoriesList, Category } from './ListCategoriesStyle'
+
 import { get_categories } from '../Actions/categories'
 
 class ListCategories extends Component {
@@ -13,13 +15,19 @@ class ListCategories extends Component {
     render() {
         const { categories } = this.props
 
-        return (
-            <div>
-                { categories.map(category => (
-                    <Link key={ category.path } to={ `/${category.path}` }>{ category.name }</Link>
-                )) }
-            </div>
-        )
+        if(categories.length === 0) {
+            return null
+        } else {
+            return (
+                <CategoriesList>
+                    { categories.map(category => (
+                        <Category key={ category.path }>
+                            <Link to={ `/${category.path}` }>{ category.name }</Link>
+                        </Category>
+                    )) }
+                </CategoriesList>
+            )
+        }
     }
 }
 

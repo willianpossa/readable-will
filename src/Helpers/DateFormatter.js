@@ -5,7 +5,7 @@ const DateFormatter = timestamp => {
     const minutes = d.getMinutes()
     const seconds = d.getSeconds()
 
-    const formattedDate = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()} ${formatterNumberWithZero(hours)}:${formatterNumberWithZero(minutes)}:${formatterNumberWithZero(seconds)}`
+    const formattedDate = `${formatterNumberWithZero(d.getDate())}/${formatterNumberWithZero(d.getMonth() + 1)}/${d.getFullYear()} ${formatterNumberWithZero(hours)}:${formatterNumberWithZero(minutes)}:${formatterNumberWithZero(seconds)}`
 
     return formattedDate
 }

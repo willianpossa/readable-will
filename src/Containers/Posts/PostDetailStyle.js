@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import { Media } from '../../ConfigStyle'
-
 const ArticleWrapper = styled.article`
     display: flex;
     border-radius: 10px;
@@ -115,6 +113,13 @@ const Like = styled.div`
     }
 `
 
+const CommentsTitle = styled.h4`
+    margin: 20px 0;
+    font-size: 20px;
+    font-weight: 400;
+    text-transform: uppercase;
+`
+
 export { 
     ArticleWrapper,
     ArticleInfo, 
@@ -129,5 +134,6 @@ export {
     ContentWrapper,
     LikeWrapper,
     Like,
-    Arrow
+    Arrow,
+    CommentsTitle
 }

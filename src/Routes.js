@@ -2,8 +2,14 @@ import Posts from './Pages/Posts'
 import EditPost from './Pages/EditPost'
 import ViewPost from './Pages/ViewPost'
 import Category from './Pages/Category'
+import NotFoundPage from './Pages/NotFound';
 
 export default [
+    {
+        component: NotFoundPage,
+        path: '/not-found',
+        exact: true
+    },
     {
         component: Posts,
         path: '/',
@@ -12,12 +18,12 @@ export default [
     {
         component: EditPost,
         path: '/post/new',
-        exact: false
+        exact: true
     },
     {
         component: EditPost,
         path: '/:post_id/edit',
-        exact: false
+        exact: true
     },
     {
         component: ViewPost,

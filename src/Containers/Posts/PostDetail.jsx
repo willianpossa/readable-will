@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 
 import Comments from '../Comments/Comments'
 import NewComment from '../Comments/NewComment'
@@ -19,7 +19,8 @@ import {
     LikeWrapper, 
     Like,
     Arrow,
-    ContentWrapper
+    ContentWrapper,
+    CommentsTitle
 } from './PostDetailStyle'
 
 import { 
@@ -68,13 +69,15 @@ class PostDetail extends Component {
             title, 
             author, 
             timestamp, 
-            commentCount, 
             category, 
             voteScore,
-            single,
+            body
         } = post
 
         const { deleted } = this.state
+
+        // if(!post.id)
+        //     return <Redirect to='/not-found' />
 
         if(deleted) {
             return <Redirect to='/' />
@@ -92,12 +95,12 @@ class PostDetail extends Component {
                                 { comments.length } comentário{ comments.length > 1 ? 's' : '' }
                             </CommentsCount>
                         </GeneralsInfo>
-                        { single !== '' && 
-                            <ContentWrapper>{ single }</ContentWrapper>
-                        }
+                        <ContentWrapper>{ body }</ContentWrapper>
                         <ActionsWrapper>
                             <Category>{ category }</Category>
-                            <Action className="blue">Editar</Action>
+                            <Action className="blue">
+                                <Link to={ `/${ id }/edit` }>Editar</Link>
+                            </Action>
                             <Action 
                                 onClick={ this.deletePost }
                                 className="red"
@@ -117,7 +120,7 @@ class PostDetail extends Component {
                 
                 <hr />
 
-                <button>Write Comment</button>
+                <CommentsTitle>Comentários({ comments.length })</CommentsTitle>
                 <NewComment post_id={ id } />
 
                 <Comments comments={ comments } />
@@ -126,7 +129,7 @@ class PostDetail extends Component {
     }
 }
 
-const mapStateToProps = ({ Posts, Comments }, ownProps) => {
+const mapStateToProps = ({ Posts, Comments }) => {
     return {
         post: Posts.post,
         comments: Comments.comments

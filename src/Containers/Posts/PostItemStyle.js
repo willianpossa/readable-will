@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import { Media } from '../../ConfigStyle'
-
 const ArticleWrapper = styled.article`
     display: flex;
     border-radius: 10px;
