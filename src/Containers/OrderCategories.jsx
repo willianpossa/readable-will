@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 
 import { Wrapper, Selector } from './OrderCategoriesStyle'
 
+import { sortPosts } from '../Actions/posts'
+
 class OrderCategories extends Component {
 
     state = {
@@ -14,6 +16,9 @@ class OrderCategories extends Component {
             ...prevState,
             selected: value
         }))
+
+        if(value === 'score')
+            this.props.SortPosts(this.props.posts)
     }
 
     render() {
@@ -26,8 +31,7 @@ class OrderCategories extends Component {
             <Wrapper>
                 <Selector value={ this.state.selected } onChange={ this.handleChange }>
                     <option value="">Ordernar por</option>
-                    <option value="asc">Menos curtido</option>
-                    <option value="desc">Mais curtido</option>
+                    <option value="score">Curtida</option>
                 </Selector>
             </Wrapper>
         )
@@ -45,4 +49,8 @@ const mapStateToProps = ({ Posts }, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps)(OrderCategories)
+const mapDispatchToProps = (dispatch) => ({
+    SortPosts: (posts) => (dispatch(sortPosts(posts)))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderCategories)

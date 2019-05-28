@@ -62,13 +62,6 @@ const handleEditPost = post => {
     }
 }
 
-const handleOrderPosts = orderBy => {
-    return {
-        type: ORDER_POSTS,
-        orderBy
-    }
-}
-
 // Actions Logic
 export const fetch_posts = () => {
     return dispatch => {
@@ -139,5 +132,12 @@ export const editPost = (post_id, post) => {
 export const emptyPost = _ => {
     return {
         type: EMPTY_POST
+    }
+}
+
+export const sortPosts = posts => {
+    return {
+        type: ORDER_POSTS,
+        posts
     }
 }

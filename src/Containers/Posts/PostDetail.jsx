@@ -26,7 +26,8 @@ import {
 import { 
     get_post_detail,
     votePost,
-    deletePost
+    deletePost,
+    emptyPost
 } from '../../Actions/posts'
 
 import {
@@ -38,7 +39,8 @@ import DateFormatter from '../../Helpers/DateFormatter'
 class PostDetail extends Component {
 
     state = {
-        deleted: false
+        deleted: false,
+        notFound: false
     }
 
     deletePost = _ => {
@@ -59,6 +61,21 @@ class PostDetail extends Component {
         this.props.GetComments(post_id)
     }
 
+    componentWillUnmount() {
+        this.props.EmptyPost()
+    }
+    
+    componentDidUpdate(prevProps) {
+        const { post_id, post } = this.props
+
+        if(post_id !== '' && !Object.keys(post).length) {
+            this.setState(prevState => ({
+                ...prevState,
+                notFound: true
+            }))
+        }
+    }
+
     render() {
         const { 
             comments, 
@@ -74,9 +91,9 @@ class PostDetail extends Component {
             body
         } = post
 
-        const { deleted } = this.state
+        const { deleted, notFound } = this.state
 
-        // if(!post.id)
+        // if(notFound)
         //     return <Redirect to='/not-found' />
 
         if(deleted) {
@@ -140,7 +157,8 @@ const mapDispatchToProps = dispatch => ({
     GetComments: post_id => (dispatch(getComments(post_id))),
     GetPostDetail: id => (dispatch(get_post_detail(id))),
     VotePost: (type, post_id) => (dispatch(votePost(type, post_id))),
-    DeletePost: (post_id) => (dispatch(deletePost(post_id)))
+    DeletePost: (post_id) => (dispatch(deletePost(post_id))),
+    EmptyPost: _ => (dispatch(emptyPost()))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail)

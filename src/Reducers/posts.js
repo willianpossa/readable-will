@@ -9,6 +9,7 @@ import {
     ORDER_POSTS,
     EMPTY_POST
 } from "../Actions/ActionTypes";
+import _ from "lodash"
 
 const defaultState = {
     posts: [],
@@ -111,6 +112,18 @@ export default function posts(state = defaultState, action) {
             return {
                 ...state,
                 post: {}
+            }
+
+        case ORDER_POSTS:
+            const postsSorted = _.sortBy(action.posts, [
+                (post) => {
+                    return post.voteScore    
+                }
+            ]).reverse()
+        
+            return {
+                ...state,
+                posts: postsSorted
             }
 
         default:
